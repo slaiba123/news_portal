@@ -23,14 +23,14 @@ include('includes/config.php');
             <div class="nav-box nav-box2">
                 <nav>
                     <ul>
-                        <li><a href="Home.html">Home</a></li>
-                        <li><a href="politics.html">Politics</a></li>
-                        <li><a href="entertain.html">Entertainment</a></li>
-                        <li><a href="style.html">Style</a></li>
-                        <li><a href="sport.html">Sport</a></li>
-                        <li><a href="Health.html">Health</a></li>
-                        <li><a href="food.html">Food</a></li>
-                        <li><a href="admin/"><button class="nav-button" id="loginButton">LOGIN</button></a></li>
+                        <li><a href="Home.php">Home</a></li>
+                        <li><a href="Politics.php">Politics</a></li>
+                        <li><a href="Entertain.php">Entertainment</a></li>
+                        <li><a href="Style.php">Style</a></li>
+                        <li><a href="Sports.php">Sport</a></li>
+                        <li><a href="Health.php">Health</a></li>
+                        <li><a href="Food.php">Food</a></li>
+                        <li><button class="nav-button" id="loginButton">LOGIN</button></li>
                     </ul>
                 </nav>
             </div>
@@ -92,6 +92,7 @@ include('includes/config.php');
             <div class="featured-article">
                 <div class="article-content">
                     <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                     <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                     <div class="meta">
                         <span>13</span>
@@ -103,11 +104,13 @@ include('includes/config.php');
             </div>
                         <div class="side-articles">
                             <div class="side-article">
-                                <h3>Watch Triumph Poop on Fallon's Game</h3>
+                                <p class="heading">Watch Triumph Poop on Fallon's Game</p>
+                                <img src="images/mushroom.jpeg" alt="" height="60%" width="100%">
                                 <p>By Komol Kuckharov</p>
                             </div>
                             <div class="side-article">
-                                <h3>Dozens of U.S. Cities Break Daily Record Lows</h3>
+                                <p class="heading">Watch Triumph Poop on Fallon's Game</p>
+                                <img src="images/mushroom.jpeg" alt="" height="60%" width="100%">
                                 <p>By Alexander Babarov</p>
                             </div>
                         </div>
@@ -267,7 +270,9 @@ include('includes/config.php');
               <div class="featured-article1">
                 <div class="article-content1">
                     <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                     <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
+                    
                     <div class="meta">
                         <span>13</span>
                         <span>34</span>
@@ -279,6 +284,7 @@ include('includes/config.php');
 
                 <div class="article-content1">
                     <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                     <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                     <div class="meta">
                         <span>13</span>
@@ -290,6 +296,7 @@ include('includes/config.php');
 
                 <div class="article-content1">
                     <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                     <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                     <div class="meta">
                         <span>13</span>
@@ -302,6 +309,7 @@ include('includes/config.php');
               <div class="featured-article1">
                     <div class="article-content1">
                         <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                        <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                         <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                         <div class="meta">
                             <span>13</span>
@@ -314,6 +322,7 @@ include('includes/config.php');
 
                         <div class="article-content1">
                             <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                            <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                             <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                             <div class="meta">
                                 <span>13</span>
@@ -326,6 +335,7 @@ include('includes/config.php');
           
                         <div class="article-content1">
                             <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
+                            <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
                             <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
                             <div class="meta">
                                 <span>13</span>
@@ -360,7 +370,10 @@ include('includes/config.php');
             let sliderContainer = document.querySelector('.slider-container');
             sliderContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
-
+        
+        document.getElementById("loginButton").addEventListener("click", function() {
+            window.location.href = "admin/";
+        });
     </script>  
     
         
