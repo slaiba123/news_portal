@@ -95,6 +95,7 @@
 
         if (isVideoByExtension($filePath)) {
             $videoFound = true; // Set flag to true when video is found
+            echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
             echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
             echo '<video width="100%" height="240" controls autoplay loop>
                     <source src="admin/postimages/' . htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8') . '" type="video/mp4">
@@ -104,7 +105,9 @@
             echo '<div class="meta">';
             echo '<span>viewed by ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
             echo '</div>';
+            echo'</a>';
             break; // Exit the loop once video is found
+            
         }
     }
 
@@ -136,11 +139,13 @@ $conn->close();
             if ($result->num_rows > 0) {
                 // Display each post
                 while($row = $result->fetch_assoc()) {
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
                     echo '<div class="side-article">';
                     echo '<p class="heading">' . $row['PostTitle'] . '</p>';
                     echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
                     // echo '<p>By ' . $row['Author'] . '</p>';
                     echo '</div>';
+                    echo'</a>';
                 }
             } else {
                 echo "<p>No side articles found.</p>";
@@ -171,9 +176,14 @@ $conn->close();
                 if ($result->num_rows > 0) {
                     // Display each post
                     while($row = $result->fetch_assoc()) {
+                        $postID = htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8');
+                        $postTitle = htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8');
+                        $postingDate = htmlspecialchars($row['PostingDate'], ENT_QUOTES, 'UTF-8');
+                    
+                        // Generate the link and list item
                         echo '<li>';
-                        echo '<a href="#">' . $row['PostTitle'] . '</a>';
-                        echo '<span class="time">' . $row['PostingDate'] . '</span>';
+                        echo '<a href="news-details.php?nid=' . $postID . '">' . $postTitle . '</a>';
+                        echo '<span class="time">' . $postingDate . '</span>';
                         echo '</li>';
                     }
                 } else {
@@ -220,15 +230,17 @@ $conn->close();
                         }
                 
                         echo '<div class="article-content1">';
+                        echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
                         echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
                         echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
                         echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
                         echo '<div class="meta">';
                         // Example meta data can be added here
                         echo '<span>viewed by:   ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . '  people</span>';
+                        echo'</a>';
                         echo '</div>';
                         echo '</div>';
-                
+                        
                         $count++;
                     }
                 

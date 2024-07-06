@@ -44,20 +44,36 @@ include('includes/config.php');
                     <div class="m-p-text"><h3>Most Popular</h3></div>
                 </div>
                 <div class="popular-articles">
-                    <div class="popular-article">
-                        <h4>Eddie Trunk's 10 Favorite Metal Show Guests</h4>
-                        <p>The metal host tells us the highlights, including Axl Rose's late-night...</p>
-                    </div>
-                    <div class="popular-article">
-                        <h4>'Spectre' Is Perfect, Says 2015 Oscar-Nominated Writer</h4>
-                        <p>Imagine if 'Inception' came starred Keanu Reeves...</p>
-                    </div>
-                    <div class="popular-article">
-                        <h4>Applause, Please, for This Week's Style Heroes</h4>
-                        <p>Moore, Candy, Smith, and Penn are just three of our favorite dressers right now...</p>
-                    </div>
-                </div>
-            </div>
+                <?php
+
+                $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+                $sql = "SELECT id, PostTitle, PostDetails FROM tblposts WHERE viewCounter > 900";
+                $result = $conn->query($sql);
+
+        if ($result === false) {
+            die("ERROR: Could not execute query: $sql. " . mysqli_error($conn));
+        }
+
+        if (mysqli_num_rows($result) > 0) {
+            $count = 0;
+            while ($row = $result->fetch_assoc() && $count < 4) {
+                echo '<div class="popular-article">';
+                echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
+                echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
+                echo '</a>';
+                echo '</div>';
+                $count++;
+            }
+        } else {
+            echo '<p>No popular articles found.</p>';
+        }
+
+        mysqli_close($conn);
+        ?>
+        </div>
+    </div>
+            
             <div class="weather">
                 <div class="weather-head"><h3>Weather</h3></div>
                 <div class="weather-forecast">
@@ -91,50 +107,132 @@ include('includes/config.php');
         <section class="content">
             <div class="featured-article">
                 <div class="article-content">
-                    <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                    <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                    <div class="meta">
-                        <span>13</span>
-                        <span>34</span>
-                        <span>99</span>
-                        <span>Komol Kuckharov</span>
-                    </div>
+                    <?php
+                // Include the database connection script
+           
+            $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT id, PostTitle, PostDetails, PostingDate, PostImage, viewCounter 
+            FROM tblposts 
+            WHERE Is_Active=1 
+            ORDER BY PostingDate DESC";
+            $result = $conn->query($sql);
+            if ($result && $result->num_rows > 0) {
+        function isVideoByExtension($filePath) {
+        $videoExtensions = ['mp4', 'avi', 'wmv', 'flv', 'mkv', 'mov', 'mpeg'];
+        $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+        return in_array(strtolower($fileExtension), $videoExtensions);
+        }
+
+        $videoFound = false; // Flag to track if video is found
+
+        while ($row = $result->fetch_assoc()) {
+        $filePath = $row['PostImage'];
+
+        if (isVideoByExtension($filePath)) {
+        $videoFound = true; // Set flag to true when video is found
+        echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+        echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
+        echo '<video width="100%" height="240" controls autoplay loop>
+                <source src="admin/postimages/' . htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8') . '" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>';
+        echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 100), ENT_QUOTES, 'UTF-8') . '...</p>';
+        echo '<div class="meta">';
+        echo '<span>viewed by ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
+        echo '</div>';
+        echo'</a>';
+        break; // Exit the loop once video is found
+
+        }
+        }
+
+        if (!$videoFound) {
+        // If no video was found, show default message
+        echo "No video posts found.";
+        }
+        } else {
+        echo "No posts found.";
+        }
+        $conn->close();
+        ?>
                 </div>
             </div>
-                        <div class="side-articles">
-                            <div class="side-article">
-                                <p class="heading">Watch Triumph Poop on Fallon's Game</p>
-                                <img src="images/mushroom.jpeg" alt="" height="60%" width="100%">
-                                <p>By Komol Kuckharov</p>
-                            </div>
-                            <div class="side-article">
-                                <p class="heading">Watch Triumph Poop on Fallon's Game</p>
-                                <img src="images/mushroom.jpeg" alt="" height="60%" width="100%">
-                                <p>By Alexander Babarov</p>
-                            </div>
-                        </div>
+        <div class="side-articles">
+            <?php
+          $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+
+            // Check connection
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            }
+            
+            // Define the SQL query to fetch the latest side articles
+            $sql = "SELECT id, PostTitle, PostDetails, PostingDate, PostImage FROM tblposts WHERE Is_Active=1  ORDER BY PostingDate DESC LIMIT 2";
+            $result = $conn->query($sql);
+
+            // Check if there are any results
+            if ($result->num_rows > 0) {
+                // Display each post
+                while($row = $result->fetch_assoc()) {
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    echo '<div class="side-article">';
+                    echo '<p class="heading">' . $row['PostTitle'] . '</p>';
+                    echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
+                    // echo '<p>By ' . $row['Author'] . '</p>';
+                    echo '</div>';
+                    echo'</a>';
+                }
+            } else {
+                echo "<p>No side articles found.</p>";
+            }
+
+            // Close the database connection
+            $conn->close();
+            ?>
+        </div>
                                       
             <aside class="recent-news">
                 <h3>Recent News</h3>
                 <ul>
-                    <li>
-                        <a href="#">Perfect New Shoes at Any Price</a>
-                        <span class="time">1 hour ago</span>
-                    </li>
-                    <li>
-                        <a href="#">Why Kanye's Adidas Collection...</a>
-                        <span class="time">2 hours ago</span>
-                    </li>
-                    <li>
-                        <a href="#">Your Dog Can Tell Whether You're Happy or Sad</a>
-                        <span class="time">3 hours ago</span>
-                    </li>
-                    <li>
-                        <a href="#">John Kitzhaber Resigns as Oregon...</a>
-                        <span class="time">4 hours ago</span>
-                    </li>
-                </ul>
+                <?php
+                // Reconnect to the database
+                $conn = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+
+                // Check connection
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+               
+                // Define the SQL query to fetch the recent news
+                $sql = "SELECT id, PostTitle,DATE(PostingDate) as PostingDate  FROM tblposts WHERE Is_Active=1 ORDER BY PostingDate DESC LIMIT 4";
+                $result = $conn->query($sql);
+
+                // Check if there are any results
+                if ($result->num_rows > 0) {
+                    // Display each post
+                    while($row = $result->fetch_assoc()) {
+                        $postID = htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8');
+                        $postTitle = htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8');
+                        $postingDate = htmlspecialchars($row['PostingDate'], ENT_QUOTES, 'UTF-8');
+                    
+                        // Generate the link and list item
+                        echo '<li>';
+                        echo '<a href="news-details.php?nid=' . $postID . '">' . $postTitle . '</a>';
+                        echo '<span class="time">' . $postingDate . '</span>';
+                        echo '</li>';
+                    }
+                } else {
+                    echo "<li>No recent news found.</li>";
+                }
+
+                // Close the database connection
+                $conn->close();
+                ?>
+            </ul>
             </aside>
         </section>
         <section class="slider">
@@ -187,75 +285,8 @@ include('includes/config.php');
                             </div>
                         </a>
                     </div>
-                    <div class="slide-item">
-                        <a href="post6.html">
-                            <img src="image6.jpg" alt="News Image 6">
-                            <div class="description">
-                                <h3>News Headline 6</h3>
-                                <p>Brief description of news 6...</p>
-                            </div>
-                        </a>
-                    </div>
+              
                 </div>
-                <div class="slide">
-                    <div class="slide-item">
-                        <a href="post7.html">
-                            <img src="image7.jpg" alt="News Image 7">
-                            <div class="description">
-                                <h3>News Headline 7</h3>
-                                <p>Brief description of news 7...</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="slide-item">
-                        <a href="post8.html">
-                            <img src="image8.jpg" alt="News Image 8">
-                            <div class="description">
-                                <h3>News Headline 8</h3>
-                                <p>Brief description of news 8...</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="slide-item">
-                        <a href="post9.html">
-                            <img src="image9.jpg" alt="News Image 9">
-                            <div class="description">
-                                <h3>News Headline 9</h3>
-                                <p>Brief description of news 9...</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-item">
-                        <a href="post10.html">
-                            <img src="image10.jpg" alt="News Image 10">
-                            <div class="description">
-                                <h3>News Headline 10</h3>
-                                <p>Brief description of news 10...</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="slide-item">
-                        <a href="post11.html">
-                            <img src="image11.jpg" alt="News Image 11">
-                            <div class="description">
-                                <h3>News Headline 11</h3>
-                                <p>Brief description of news 11...</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="slide-item">
-                        <a href="post12.html">
-                            <img src="image12.jpg" alt="News Image 12">
-                            <div class="description">
-                                <h3>News Headline 12</h3>
-                                <p>Brief description of news 12...</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
             <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
             <button class="next" onclick="plusSlides(1)">&#10095;</button>
         </section>
@@ -265,88 +296,67 @@ include('includes/config.php');
             
 
         <section class="mycontent">  
-            <div class="mycontainer">
+        <div class="mycontainer">
+            <div class="featured-article1">
+                <?php
+                // Reconnect to the database
+                $conn = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 
-              <div class="featured-article1">
-                <div class="article-content1">
-                    <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                    <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                    
-                    <div class="meta">
-                        <span>13</span>
-                        <span>34</span>
-                        <span>99</span>
-                        <span>Komol Kuckharov</span>
-                    </div>
-                </div>
+                // Check connection
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
                 
-
-                <div class="article-content1">
-                    <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                    <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                    <div class="meta">
-                        <span>13</span>
-                        <span>34</span>
-                        <span>99</span>
-                        <span>Komol Kuckharov</span>
-                    </div>
-                </div>
-
-                <div class="article-content1">
-                    <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                    <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                    <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                    <div class="meta">
-                        <span>13</span>
-                        <span>34</span>
-                        <span>99</span>
-                        <span>Komol Kuckharov</span>
-                    </div>
-                </div>
-              </div>
-              <div class="featured-article1">
-                    <div class="article-content1">
-                        <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                        <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                        <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                        <div class="meta">
-                            <span>13</span>
-                            <span>34</span>
-                            <span>99</span>
-                            <span>Komol Kuckharov</span>
-                        </div>
-                    </div>
-            
-
-                        <div class="article-content1">
-                            <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                            <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                            <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                            <div class="meta">
-                                <span>13</span>
-                                <span>34</span>
-                                <span>99</span>
-                                <span>Komol Kuckharov</span>
-                            </div>
-                        </div>
-
+                // Define the SQL query to fetch the featured articles
+                $sql = "SELECT id, PostTitle, PostDetails, PostingDate, PostImage,viewCounter FROM tblposts WHERE Is_Active=1  ORDER BY PostingDate DESC";
+                $result = $conn->query($sql);
           
-                        <div class="article-content1">
-                            <h2>Why 'Boyhood' Will Be the 'Pulp Fiction' of the 2015 Oscars</h2>
-                            <img src="images/mushroom.jpeg" alt="" height="50%" width="100%">
-                            <p>Even if it doesn't win Best Picture, 'Boyhood', not 'Birdman' or 'American Sniper', will be the movie we cherish the longest.</p>
-                            <div class="meta">
-                                <span>13</span>
-                                <span>34</span>
-                                <span>99</span>
-                                <span>Komol Kuckharov</span>
-                            </div>
-                        </div>
-                </div>
-                
+                if ($result->num_rows > 0) {
+                    echo '<section class="mycontent">';  
+                    echo '<div class="mycontainer">';
+                    
+                    $count = 0;
+
+                    while ($row = $result->fetch_assoc()) {
+                        if ($count >= 6) {
+                            break;
+                        }
+                        
+                        if ($count % 3 == 0) {
+                            if ($count > 0) {
+                                echo '</div>'; // Close previous featured-article1 div
+                            }
+                            echo '<div class="featured-article1">';
+                        }
+                    
+                        echo '<div class="article-content1">';
+                        echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                        echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
+                        echo '<img src="admin/postimages/' . htmlspecialchars($row['PostImage'], ENT_QUOTES, 'UTF-8') . '" alt="" height="60%" width="100%">';
+                        echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
+                        echo '<div class="meta">';
+                        // Example meta data can be added here
+                        echo '<span>viewed by: ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
+                        echo '</a>';
+                        echo '</div>';
+                        echo '</div>';
+                    
+                        $count++;
+                    }
+                    
+                    if ($count > 0) {
+                        echo '</div>'; // Close the last featured-article1 div if there were any articles
+                    }
+                    
+                    echo '</div>'; 
+                    echo '</section>';
+                }
+                                
+                // Close the database connection
+                $conn->close();
+                ?>
             </div>
+        </div>
 
 
         </section>    
