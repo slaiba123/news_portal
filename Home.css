@@ -99,7 +99,7 @@ main {
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 100%;
+    height: 410px;
 }
 
 .featured-article h2 {
@@ -124,8 +124,8 @@ main {
 }
 
 .featured-article1 .article-content1 {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     padding: 10px;
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -159,7 +159,7 @@ main {
     padding-top:0;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 190px;
+    height: 195px;
 }
 
 .side-article>p{

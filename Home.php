@@ -185,13 +185,15 @@ include('includes/config.php');
             if ($result->num_rows > 0) {
                 // Display each post
                 while($row = $result->fetch_assoc()) {
-                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    
                     echo '<div class="side-article">';
-                    echo '<p class="heading">' . $row['PostTitle'] . '</p>';
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    echo '<h3 class="heading">' . $row['PostTitle'] . '</h3>';
                     echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
                     // echo '<p>By ' . $row['Author'] . '</p>';
-                    echo '</div>';
                     echo'</a>';
+                    echo '</div>';
+                 ;
                 }
             } else {
                 echo "<p>No side articles found.</p>";
