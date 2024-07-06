@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO tblusers (fullName, emailId, contactno, password) VALUES ('$fullname', '$email', '$contact_number', '$hashed_password')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        // echo "New record created successfully";
         // Optionally, redirect to login page after successful signup
         // header("Location: login.php");
         // exit;
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
             <label for="confirmpassword">Confirm Password</label>
-            <input type="confirmpassword" id="confirmpassword" name="confirmpassword" required placeholder="confirmpassword" autocomplete="off">
+            <input type="password" id="confirmpassword" name="confirmpassword" required placeholder="confirmpassword" autocomplete="off">
             </div>
             
             <div class="form-group account-btn text-center m-t-10">

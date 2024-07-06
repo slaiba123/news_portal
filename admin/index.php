@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
         }
     } else {
         // Check if the user is a normal user
-        $sql_user = mysqli_query($con,"SELECT fullName, password,userId FROM tblusers WHERE fullName=?");
+        $sql_user = mysqli_query($con,"SELECT fullName, password,userId FROM tblusers WHERE fullName='$uname' and password='$password'");
         // $sql_user->bind_param("s", $uname);
         // $sql_user->execute();
         // $result_user = $sql_user->get_result();
