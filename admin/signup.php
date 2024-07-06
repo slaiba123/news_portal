@@ -13,11 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $fullname = $_POST['fullname'];
+    $fullname = $_POST['username'];
     $email = $_POST['email'];
     $contact_number = $_POST['contactno'];
     $password = $_POST['password'];
-    $confirm_password = $_POST['confirm-password'];
+    $confirm_password = $_POST['confirmpassword'];
+
 
     // Validate passwords match
     if ($password !== $confirm_password) {
