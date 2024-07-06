@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Portal</title>
     <!-- <link rel="stylesheet" href="styles.css"> -->
-    <link rel="stylesheet" href="politics.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -139,13 +139,15 @@ $conn->close();
             if ($result->num_rows > 0) {
                 // Display each post
                 while($row = $result->fetch_assoc()) {
-                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    
                     echo '<div class="side-article">';
-                    echo '<p class="heading">' . $row['PostTitle'] . '</p>';
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    echo '<h3 class="heading">' . $row['PostTitle'] . '</h3>';
                     echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
                     // echo '<p>By ' . $row['Author'] . '</p>';
-                    echo '</div>';
                     echo'</a>';
+                    echo '</div>';
+                    
                 }
             } else {
                 echo "<p>No side articles found.</p>";
@@ -220,35 +222,35 @@ $conn->close();
                     echo '<div class="mycontainer">';
                     
                     $count = 0;
+
                     while ($row = $result->fetch_assoc()) {
                         if ($count >= 6) {
                             break;
                         }
-                    
+                        
                         if ($count % 3 == 0) {
                             if ($count > 0) {
                                 echo '</div>'; // Close previous featured-article1 div
                             }
                             echo '<div class="featured-article1">';
                         }
-                        
                         $imagePath = 'admin/postimages/' . htmlspecialchars($row['PostImage'], ENT_QUOTES, 'UTF-8');
                         if (getimagesize($imagePath)) {
-                            echo '<div class="article-content1">';
-                            echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
-                            echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
-                            echo '<img src="' . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') . '" alt="" class="responsive-image">';
-                            echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 83), ENT_QUOTES, 'UTF-8') . '...</p>';
-                            echo '<div class="meta">';
-                            // Example meta data can be added here
-                            echo '<span>viewed by: ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
-                            echo '</a>';
-                            echo '</div>';
-                            echo '</div>';
-                            
-                            $count++;
-                        }
-                    }
+                        echo '<div class="article-content1">';
+                        echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                        echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
+                        echo '<img src="admin/postimages/' . htmlspecialchars($row['PostImage'], ENT_QUOTES, 'UTF-8') . '" alt=""  height="50%" width="100%">';
+                        echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
+                        echo '<span>viewed by: ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
+        
+                        // Example meta data can be added here
+                        
+                        echo '</a>';
+                        
+                        echo '</div>';
+                    
+                        $count++;
+                    }}
                     
                     if ($count > 0) {
                         echo '</div>'; // Close the last featured-article1 div if there were any articles
