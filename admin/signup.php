@@ -102,6 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" id="email" name="email" required placeholder="Email" autocomplete="off">
             </div>
             <div class="form-group">
+            <label for="contactno">Contact Number</label>
+            <input type="contactno" id="contactno" name="contactno" required placeholder="contactno" autocomplete="off">
+            </div>
+            <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required placeholder="password" autocomplete="off">
             </div>

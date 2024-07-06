@@ -220,38 +220,41 @@ $conn->close();
                     echo '<div class="mycontainer">';
                     
                     $count = 0;
-                
+
                     while ($row = $result->fetch_assoc()) {
+                        if ($count >= 6) {
+                            break;
+                        }
+                        
                         if ($count % 3 == 0) {
                             if ($count > 0) {
                                 echo '</div>'; // Close previous featured-article1 div
                             }
                             echo '<div class="featured-article1">';
                         }
-                
+                    
                         echo '<div class="article-content1">';
                         echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
                         echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
-                        echo '<img src="admin/postimages/' . $row['PostImage'] . '" alt="" height="60%" width="100%">';
+                        echo '<img src="admin/postimages/' . htmlspecialchars($row['PostImage'], ENT_QUOTES, 'UTF-8') . '" alt="" height="60%" width="100%">';
                         echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
                         echo '<div class="meta">';
                         // Example meta data can be added here
-                        echo '<span>viewed by:   ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . '  people</span>';
-                        echo'</a>';
+                        echo '<span>viewed by: ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
+                        echo '</a>';
                         echo '</div>';
                         echo '</div>';
-                        
+                    
                         $count++;
                     }
-                
+                    
                     if ($count > 0) {
                         echo '</div>'; // Close the last featured-article1 div if there were any articles
                     }
                     
                     echo '</div>'; 
                     echo '</section>';
-                }
-                                
+                }           
                 // Close the database connection
                 $conn->close();
                 ?>

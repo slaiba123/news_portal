@@ -38,7 +38,7 @@ include('includes/config.php');
     </header>
     <main>
         <section class="extra-content">
-            <div class="most-popular">
+        <div class="most-popular">
                 <div class="most-popular-head">
                     <div class="most-p-icon"><i class="fa-regular fa-heart"></i></div>
                     <div class="m-p-text"><h3>Most Popular</h3></div>
@@ -47,30 +47,37 @@ include('includes/config.php');
                 <?php
 
                 $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-                $sql = "SELECT id, PostTitle, PostDetails FROM tblposts WHERE viewCounter > 900";
+                $sql = "SELECT id, PostTitle, PostDetails FROM tblposts WHERE viewCounter > 1000";
                 $result = $conn->query($sql);
+  
 
         if ($result === false) {
             die("ERROR: Could not execute query: $sql. " . mysqli_error($conn));
         }
 
-        if (mysqli_num_rows($result) > 0) {
-            $count = 0;
-            while ($row = $result->fetch_assoc() && $count < 4) {
-                echo '<div class="popular-article">';
-                echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
-                echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
-                echo '<p>' . htmlspecialchars(substr($row['PostDetails'], 0, 90), ENT_QUOTES, 'UTF-8') . '...</p>';
-                echo '</a>';
-                echo '</div>';
-                $count++;
+        
+            // Step 3: Embed the Data into HTML
+            if ($result->num_rows > 0) {
+                $counter = 0;
+                // Display each post
+                while($row = $result->fetch_assoc()) {
+                    if ($counter >= 4) {
+                        break;
+                    }
+                    echo '<li>';
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">' . $row['PostTitle'] . '</a>';
+                    echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+                    echo '<div class="time">' . htmlspecialchars(substr($row['PostDetails'], 0, 50), ENT_QUOTES, 'UTF-8') . '...</div>';
+                    echo '</a>';
+                    echo '</li>';
+                    $counter++;
+                }
+            } else {
+                echo '<p>No popular articles found.</p>';
             }
-        } else {
-            echo '<p>No popular articles found.</p>';
-        }
-
-        mysqli_close($conn);
-        ?>
+    
+            mysqli_close($conn);
+            ?>
         </div>
     </div>
             
