@@ -1,54 +1,33 @@
 <?php 
 session_start();
 include('admin/includes/config.php');
-$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-
-// Generating CSRF Token
+//Genrating CSRF Token
 if (empty($_SESSION['token'])) {
-    $_SESSION['token'] = bin2hex(random_bytes(32));
+ $_SESSION['token'] = bin2hex(random_bytes(32));
 }
 
-if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in']) {
-    if (isset($_POST['submit'])) {
-        // Verifying CSRF Token
-        if (!empty($_POST['csrftoken'])) {
-            if (hash_equals($_SESSION['token'], $_POST['csrftoken'])) {
-                $comment = $_POST['comment'];
-                $postid = intval($_GET['nid']);
-                $st1 = '0';
-                $query = mysqli_query($con, "INSERT INTO tblcomments(postId,comment,status) VALUES ('$postid','$comment','$st1')");
+if(isset($_POST['submit']))
+{
+  //Verifying CSRF Token
+if (!empty($_POST['csrftoken'])) {
+    if (hash_equals($_SESSION['token'], $_POST['csrftoken'])) {
+$name=$_POST['name'];
+$email=$_POST['email'];
+$comment=$_POST['comment'];
+$postid=intval($_GET['nid']);
+$st1='0';
+$query=mysqli_query($con,"insert into tblcomments(postId,name,email,comment,status) values('$postid','$name','$email','$comment','$st1')");
+if($query):
+  echo "<script>alert('comment successfully submit. Comment will be display after admin review ');</script>";
+  unset($_SESSION['token']);
+else :
+ echo "<script>alert('Something went wrong. Please try again.');</script>";  
 
-                if ($query) {
-                    echo "<script>alert('Comment successfully submitted. Comment will be displayed after admin review.');</script>";
-                    unset($_SESSION['token']);
+endif;
 
-                    // Get the last inserted comment ID
-                    $query1 = mysqli_query($con, "SELECT comm_id FROM tblcomments ORDER BY PostingDate DESC LIMIT 1");
-                    if ($query1 && mysqli_num_rows($query1) > 0) {
-                        // Fetch the result as an associative array
-                        $row = mysqli_fetch_assoc($query1);
-                        $user_id = $_SESSION['user_id'];
-                        echo "User ID: " . $user_id;
-                        // Save the comm_id into a variable
-                        $comm_id = $row['comm_id'];
-
-                        // Insert into user_comments
-                        $query2 = mysqli_query($con, "INSERT INTO user_comment(comm_id, userId) VALUES ('$comm_id', '$user_id')");
-                    }
-                } else {
-                    echo "<script>alert('Something went wrong. Please try again.');</script>";
-                }
-            }
-        }
-    }
-} else {
-    echo "<script>alert('Invalid Admin Username or Password');</script>";
-    header("Location: signup.php");
-    exit();
 }
-
-
-
+}
+}
 $postid=intval($_GET['nid']);
 
     $sql = "SELECT viewCounter FROM tblposts WHERE id = '$postid'";
@@ -257,13 +236,13 @@ $pt=$row['postdetails'];
             <div class="card-body">
               <form name="Comment" method="post">
       <input type="hidden" name="csrftoken" value="<?php echo htmlentities($_SESSION['token']); ?>" />
- <!-- <div class="form-group">
+ <div class="form-group">
 <input type="text" name="name" class="form-control" placeholder="Enter your fullname" required>
 </div>
 
  <div class="form-group">
  <input type="email" name="email" class="form-control" placeholder="Enter your Valid email" required>
- </div> -->
+ </div>
 
 
                 <div class="form-group">
@@ -278,13 +257,13 @@ $pt=$row['postdetails'];
 
  <?php 
  $sts=1;
- $query=mysqli_query($con,"select comment,postingDate from  tblcomments where postId='$pid' and status='$sts'");
+ $query=mysqli_query($con,"select name,comment,postingDate from  tblcomments where postId='$pid' and status='$sts'");
 while ($row=mysqli_fetch_array($query)) {
 ?>
 <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="images/usericon.png" alt="">
             <div class="media-body">
-              
+              <h5 class="mt-0"><?php echo htmlentities($row['name']);?> <br />
                   <span style="font-size:11px;"><b>at</b> <?php echo htmlentities($row['postingDate']);?></span>
             </h5>
            

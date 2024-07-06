@@ -141,7 +141,7 @@ include('includes/config.php');
 
         if (isVideoByExtension($filePath)) {
         $videoFound = true; // Set flag to true when video is found
-        echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
+        // echo '<a href="news-details.php?nid=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '">';
         echo '<h2>' . htmlspecialchars($row['PostTitle'], ENT_QUOTES, 'UTF-8') . '</h2>';
         echo '<video width="100%" height="240" controls autoplay loop>
                 <source src="admin/postimages/' . htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8') . '" type="video/mp4">
@@ -151,7 +151,7 @@ include('includes/config.php');
         echo '<div class="meta">';
         echo '<span>viewed by ' . htmlspecialchars($row['viewCounter'], ENT_QUOTES, 'UTF-8') . ' people</span>';
         echo '</div>';
-        echo'</a>';
+        // echo'</a>';
         break; // Exit the loop once video is found
 
         }
