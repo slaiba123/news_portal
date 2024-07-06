@@ -17,13 +17,13 @@
             <div class="nav-box nav-box2">
                 <nav>
                     <ul>
-                        <li><a href="Home.php">Home</a></li>
+                    <li><a href="Home.php">Home</a></li>
                         <li><a href="politics.php">Politics</a></li>
                         <li><a href="entertainment.php">Entertainment</a></li>
-                        <li><a href="style.php">Style</a></li>
-                        <li><a href="sport.php">Sport</a></li>
-                        <li><a href="health.php">Health</a></li>
-                        <li><a href="food.php">Food</a></li>
+                        <li><a href="Style.php">Style</a></li>
+                        <li><a href="Sports.php">Sport</a></li>
+                        <li><a href="Health.php">Health</a></li>
+                        <li><a href="Food.php">Food</a></li>
                         <li><button class="nav-button" id="loginButton">LOGIN</button></li>
                     </ul>
                 </nav>

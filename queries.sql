@@ -16,13 +16,39 @@ where id=10;
 
 update tblposts
 SET viewCounter=1000
-where id=1;
+where id=26;
 
 UPDATE tblposts
-SET viewCounter = CASE 
-    WHEN id = 9 THEN 2000
-    WHEN id = 1 THEN 3000
-    WHEN id = 14 THEN 4000
-   
+SET PostImage= CASE 
+    WHEN id = 31 THEN "e2.jpg"
+     WHEN id = 32 THEN "e3.jpg"
+    WHEN id = 33 THEN "e4.png"
+    WHEN id = 34 THEN "e5.jpg"
+    WHEN id = 35 THEN "e6.jpg"
+	WHEN id = 36 THEN "e1.jpg"
+	WHEN id = 37 THEN "e7.jpg"
+	WHEN id = 38 THEN "e8.jpg"
 END
-WHERE id IN (9,14,1);
+WHERE id IN (31,32,33,34,35,36,37,38);
+
+UPDATE tblposts
+SET PostImage= CASE 
+    WHEN id = 35 THEN "laser-light-show-with-people-dancing-at-night-in-the-middle-of-a-desert-music--SBV-347569638-preview.mp4"
+     WHEN id = 44 THEN "doctor-explaining-x-ray-results-to-patient-during-hospital-visit-SBV-347292618-preview.mp4"
+    WHEN id = 50 THEN "baseball-stadium-club-seat-fans-SBV-335761284-preview.mp4"
+END
+WHERE id IN (35,44,50);
+
+
+UPDATE tblposts
+set PostImage="h2.jpg"
+where id=30;
+
+select * from tblcategory;
+
+
+
+
+"baseball-stadium-club-seat-fans-SBV-335761284-preview.mp4"
+"doctor-explaining-x-ray-results-to-patient-during-hospital-visit-SBV-347292618-preview.mp4"
+"laser-light-show-with-people-dancing-at-night-in-the-middle-of-a-desert-music--SBV-347569638-preview.mp4"

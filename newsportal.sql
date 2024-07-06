@@ -1312,4 +1312,144 @@ INSERT INTO `tblposts` (`id`, `PostTitle`, `CategoryId`, `SubCategoryId`, `PostD
 (9, 'Budget 2024: Key Highlights and Reactions', 6, 7, 'The Finance Minister has presented the Budget for 2024, outlining key fiscal measures and allocation of resources for various sectors. The budget has received mixed reactions from industry leaders and political analysts.', '2024-02-08 16:00:00', '2024-02-08 16:00:00', 1, 'budget-2024-key-highlights-and-reactions', 'budget_2024.jpg', 1000, 'admin', NULL),
 (14, 'Supreme Court Ruling on Electoral Bonds', 6, 7, 'The Supreme Court has issued a ruling on the legality of electoral bonds, stating that they can be used for political funding but with strict regulations to ensure transparency and accountability.', '2024-02-09 17:00:00', '2024-02-09 17:00:00', 1, 'supreme-court-ruling-on-electoral-bonds', 'electoral_bonds.jpg', 9666, 'admin', NULL);
 
-  
+ALTER TABLE `tblposts`
+DROP FOREIGN KEY `postsucatid`;
+
+ALTER TABLE `tblposts`
+ADD CONSTRAINT `postsucatid`
+FOREIGN KEY (`SubCategoryId`) REFERENCES `tblsubcategory` (`SubCategoryId`)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+DELETE FROM tblcategory WHERE id = 8;
+INSERT INTO `tblcategory` (`id`, `CategoryName`, `Description`, `PostingDate`, `UpdationDate`, `Is_Active`) VALUES
+(1, 'Style', 'We stay in style', '2024-01-11 18:30:00', '2024-01-31 05:43:16', 1),
+(2, 'Food', 'For all Foodies', '2024-01-11 18:30:00', '2024-01-31 05:43:16', 1),
+(4, 'Health', 'For All Health Freaks', '2024-01-11 18:30:00', '2024-01-31 05:43:16', 1);
+
+
+
+INSERT INTO `tblsubcategory` (`SubCategoryId`, `CategoryId`, `Subcategory`, `SubCatDescription`, `PostingDate`, `UpdationDate`, `Is_Active`) VALUES
+(1, 1, 'Lifestyle ', 'Lifestyle tips', '2024-01-14 18:30:00', '2024-01-31 05:48:30', 1),
+(2, 1, 'Fashion', 'Fashion tips', '2024-01-14 18:30:00', '2024-01-31 05:48:30', 1);
+
+INSERT INTO `tblposts` (`id`, `PostTitle`, `CategoryId`, `SubCategoryId`, `PostDetails`, `PostingDate`, `UpdationDate`, `Is_Active`, `PostUrl`, `PostImage`, `viewCounter`, `postedBy`, `lastUpdatedBy`) VALUES
+(15, 'Top 10 Summer Fashion Trends for 2024', 1, 1, 'Discover the top fashion trends for the summer of 2024. From bold colors to sustainable fabrics, here\'s what you need to stay stylish.', '2024-05-01 09:00:00', '2024-05-01 09:00:00', 1, 'top-10-summer-fashion-trends-2024', 'summer_fashion_2024.jpg', 1200, 'admin', NULL),
+(16, 'Healthy Lifestyle Tips for Busy Professionals', 1, 2, 'Busy professionals often neglect their health. Here are some practical tips to maintain a healthy lifestyle despite a hectic schedule.', '2024-05-05 10:00:00', '2024-05-05 10:00:00', 1, 'healthy-lifestyle-tips-for-busy-professionals', 'healthy_lifestyle.jpg', 850, 'admin', NULL),
+(17, 'The Rise of Sustainable Fashion', 1, 1, 'Sustainable fashion is gaining popularity as more people become aware of its impact on the environment. Learn about the key brands and trends in this movement.', '2024-05-10 11:00:00', '2024-05-10 11:00:00', 1, 'the-rise-of-sustainable-fashion', 'sustainable_fashion.jpg', 950, 'admin', NULL),
+(18, 'Top Fitness Trends to Watch in 2024', 1, 2, 'Stay ahead of the fitness game with these top trends for 2024. From virtual workouts to wearable technology, find out what\'s new in fitness.', '2024-05-15 08:00:00', '2024-05-15 08:00:00', 1, 'top-fitness-trends-to-watch-2024', 'fitness_trends.jpg', 720, 'admin', NULL),
+(19, 'How to Create a Capsule Wardrobe', 1, 1, 'Simplify your wardrobe with a capsule collection. Learn the basics of building a versatile and stylish wardrobe with fewer pieces.', '2024-05-20 09:30:00', '2024-05-20 09:30:00', 1, 'how-to-create-a-capsule-wardrobe', 'capsule_wardrobe.jpg', 530, 'admin', NULL),
+(20, 'Mental Health and Lifestyle: Tips for Balance', 1, 2, 'Balancing mental health and lifestyle can be challenging. Here are some tips to help you maintain a healthy mental state while living a busy life.', '2024-05-25 07:00:00', '2024-05-25 07:00:00', 1, 'mental-health-and-lifestyle-tips-for-balance', 'mental_health.jpg', 670, 'admin', NULL),
+(21, 'Best Organic Beauty Products of 2024', 1, 1, 'Looking for organic beauty products? Check out our list of the best organic beauty products of 2024 to keep your skin healthy and glowing.', '2024-05-30 12:00:00', '2024-05-30 12:00:00', 1, 'best-organic-beauty-products-2024', 'organic_beauty_products.jpg', 780, 'admin', NULL),
+(22, 'Travel Guide: Top Lifestyle Destinations in 2024', 1, 2, 'Explore the top lifestyle destinations to visit in 2024. From tropical beaches to bustling cities, find the perfect spot for your next vacation.', '2024-06-01 11:00:00', '2024-06-01 11:00:00', 1, 'travel-guide-top-lifestyle-destinations-2024', 'lifestyle_destinations.jpg', 650, 'admin', NULL),
+(23, 'Fashion Tips for the Modern Man', 1, 1, 'Men\'s fashion is evolving. Get the latest fashion tips for the modern man to keep your wardrobe updated and stylish.', '2024-06-05 08:30:00', '2024-06-05 08:30:00', 1, 'fashion-tips-for-the-modern-man', 'modern_man_fashion.jpg', 500, 'admin', NULL);
+
+
+INSERT INTO tblsubcategory (SubCategoryId, CategoryId, Subcategory, SubCatDescription, PostingDate, UpdationDate, Is_Active) VALUES
+(9, 2, 'Sweets', 'Various types of sweets including artisanal and vegan options.', '2024-07-06 10:00:00', '2024-07-06 10:00:00', 1),
+(10, 2, 'Drinks', 'Health benefits of natural fruit drinks and exotic coffee varieties.', '2024-07-06 11:00:00', '2024-07-06 11:00:00', 1),
+(11, 2, 'Spicy Food', 'Exploring the popularity and reasons why people love spicy foods.', '2024-07-06 15:00:00', '2024-07-06 15:00:00', 1);
+
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy) VALUES
+(24, 'The Rise of Artisanal Sweets in the Market', 2, 9, 'Artisanal sweets have been gaining popularity in the market, offering unique flavors and high-quality ingredients. Many small businesses are thriving by focusing on handcrafted confectioneries.', '2024-07-06 10:00:00', '2024-07-06 10:00:00', 1, 'the-rise-of-artisanal-sweets-in-the-market', "s1.jpeg", 150, 'admin', NULL),
+(25, 'Health Benefits of Natural Fruit Drinks', 2, 10, 'Natural fruit drinks are becoming a popular choice for health-conscious consumers. These beverages are rich in vitamins, minerals, and antioxidants, making them a nutritious alternative to sugary sodas.', '2024-07-06 11:00:00', '2024-07-06 11:00:00', 1, 'health-benefits-of-natural-fruit-drinks', 'd1.jpeg', 200, 'admin', NULL),
+(26, 'The Best Homemade Dessert Recipes for Summer', 2, 9, 'With summer in full swing, it\'s the perfect time to try out some refreshing homemade dessert recipes. From fruit sorbets to no-bake cheesecakes, these recipes are easy to make and perfect for any occasion.', '2024-07-06 12:00:00', '2024-07-06 12:00:00', 1, 'the-best-homemade-dessert-recipes-for-summer', 's2.jpeg', 180, 'admin', NULL),
+(27, 'Exploring Exotic Coffee Drinks from Around the World', 2, 10, 'Coffee enthusiasts are always on the lookout for new and exciting flavors. This article explores some of the most exotic coffee drinks from around the world, including Turkish coffee, Vietnamese egg coffee, and Italian affogato.', '2024-07-06 13:00:00', '2024-07-06 13:00:00', 1, 'exploring-exotic-coffee-drinks-from-around-the-world', 'd2.jpeg', 220, 'subadmin', NULL),
+(28, 'Vegan Sweets: Delicious and Cruelty-Free', 2, 9, 'Vegan sweets are not only delicious but also cruelty-free, making them a great choice for those looking to enjoy treats without compromising their values. This article highlights some of the best vegan sweet recipes and brands.', '2024-07-06 14:00:00', '2024-07-06 14:00:00', 1, 'vegan-sweets-delicious-and-cruelty-free', 's3.jpeg', 175, 'admin', NULL),
+(29, 'The Popularity of Spicy Foods: Why We Love the Heat', 2, 11, 'Spicy foods have a dedicated fan base, and their popularity continues to grow. This article delves into the reasons why people love spicy foods and explores some of the hottest dishes from around the world.', '2024-07-06 15:00:00', '2024-07-06 15:00:00', 1, 'the-popularity-of-spicy-foods-why-we-love-the-heat', 'h1.jpeg', 300, 'subadmin', NULL);
+
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy) VALUES
+(, 'The Popularity of Spicy Foods: Why We Love the Heat', 2, 11, 'Spicy foods have a dedicated fan base, and their popularity continues to grow. This article delves into the reasons why people love spicy foods and explores some of the hottest dishes from around the world.', '2024-07-06 15:00:00', '2024-07-06 15:00:00', 1, 'the-popularity-of-spicy-foods-why-we-love-the-heat', 'h1.jpeg', 300, 'subadmin', NULL);
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(31, 'Top 10 Must-Watch Movies of 2024', 5, 3, 'Discover the top 10 must-watch movies of 2024, featuring an exciting mix of action, drama, and comedy that you won\'t want to miss.', '2024-07-01 10:00:00', '2024-07-01 10:00:00', 1, 'movies2024.jpg', 350, 'admin', NULL),
+(32, 'Exclusive Interview with Famous Director', 5, 6, 'Get an exclusive insight into the life and career of a renowned director, as they discuss their latest blockbuster and upcoming projects.', '2024-07-02 09:00:00', '2024-07-02 09:00:00', 1, 'director-interview.jpg', 280, 'admin', NULL),
+(33, 'Behind the Scenes of a Hit TV Series', 5, 3, 'Take a peek behind the scenes of a popular TV series, from set design to scriptwriting, and meet the talented cast and crew.', '2024-07-03 11:00:00', '2024-07-03 11:00:00', 1, 'tv-series-bts.jpg', 410, 'subadmin', NULL),
+(34, 'The Rise of Virtual Reality in Gaming', 5, 6, 'Explore how virtual reality technology is revolutionizing the gaming industry, providing immersive experiences and new gameplay possibilities.', '2024-07-04 13:00:00', '2024-07-04 13:00:00', 1, 'vr-gaming.jpg', 320, 'admin', NULL),
+(35, 'Review: Concert of the Year', 5, 3, 'Read our review of the concert that everyone is talking about, featuring top-notch performances and unforgettable moments.', '2024-07-05 15:00:00', '2024-07-05 15:00:00', 1, 'concert-review.jpg', 380, 'subadmin', NULL);
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(36, 'Top 10 TV Shows You Must Binge-Watch in 2024', 5, 4, 'Explore the top 10 TV shows you must binge-watch in 2024. From gripping dramas to hilarious comedies, these shows are perfect for your entertainment!', '2024-07-05 12:00:00', '2024-07-05 12:00:00', 1, 'tv_shows_2024.jpg', 280, 'admin', NULL),
+(37, 'Best Video Games of 2024 You Should Play', 5, 5, 'Discover the best video games of 2024 that every gamer should play. From action-packed adventures to immersive RPGs, these games will keep you entertained!', '2024-07-06 14:30:00', '2024-07-06 14:30:00', 1, 'video_games_2024.jpg', 320, 'admin', NULL),
+(38, 'Top 5 Music Albums Making Waves in 2024', 5, 6, 'Check out the top 5 music albums making waves in 2024. Whether you are into pop, rock, or hip-hop, these albums showcase the best of this year\'s music scene!', '2024-07-07 11:00:00', '2024-07-07 11:00:00', 1, 'music_albums_2024.jpg', 250, 'admin', NULL);
+
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(48, 'The Importance of Regular Exercise', 4, NULL, 'Learn about the importance of regular exercise for maintaining good physical and mental health.', '2024-07-06 09:00:00', '2024-07-06 09:00:00', 1, 'he1.jpg', 200, 'admin', NULL);
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(49, 'Healthy Eating Tips for Busy Professionals', 4, NULL, 'Discover practical tips for busy professionals to maintain a healthy diet amidst a hectic schedule.', '2024-07-05 15:30:00', '2024-07-05 15:30:00', 1, 'he2.jpg', 180, 'admin', NULL);
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(50, 'Benefits of Meditation for Stress Relief', 4, NULL, 'Explore how meditation can effectively reduce stress and promote overall well-being.', '2024-07-04 11:00:00', '2024-07-04 11:00:00', 1, 'he3.jpg', 220, 'admin', NULL);
+
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(51, 'Tips for Better Sleep Hygiene', 4, NULL, 'Learn practical tips to improve sleep hygiene and enhance overall sleep quality.', '2024-07-03 17:45:00', '2024-07-03 17:45:00', 1, 'he4.png', 190, 'admin', NULL);
+
+-- Example 5
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(52, 'Common Mental Health Issues in Adolescents', 4, NULL, 'Identify common mental health issues that adolescents face and how they can be addressed.', '2024-07-02 14:20:00', '2024-07-02 14:20:00', 1, 'he5.jpg', 160, 'admin', NULL);
+
+-- Example 6
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(53, 'Benefits of Regular Cardiovascular Exercise', 4, NULL, 'Explore the various benefits of incorporating regular cardiovascular exercise into your routine.', '2024-07-01 12:00:00', '2024-07-01 12:00:00', 1, 'he6.jpg', 230, 'admin', NULL);
+
+-- Example 7
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(54, 'Nutritional Benefits of Eating More Fruits and Vegetables', 4, NULL, 'Discover the nutritional benefits of adding more fruits and vegetables to your daily diet.', '2024-06-30 10:30:00', '2024-06-30 10:30:00', 1, 'he7.jpg', 250, 'admin', NULL);
+
+-- Example 8
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(55, 'Tips for Managing Stress at Work', 4, NULL, 'Learn effective strategies for managing and reducing stress in the workplace.', '2024-06-29 16:00:00', '2024-06-29 16:00:00', 1, 'he8.jpg', 210, 'admin', NULL);
+
+-- Example 9
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(56, 'The Importance of Mental Health Awareness', 4, NULL, 'Understand why raising awareness about mental health is crucial for overall well-being.', '2024-06-28 13:45:00', '2024-06-28 13:45:00', 1, 'he9.jpg', 270, 'admin', NULL);
+
+
+-- Cricket related posts
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(57, 'Latest Cricket World Cup Highlights', 3, 4, 'Catch up on the latest highlights from the Cricket World Cup, featuring thrilling moments and standout performances from top teams.', '2024-07-04 14:00:00', '2024-07-04 14:00:00', 1, 'latest-cricket-world-cup-highlights', 'cricket_world_cup.jpg', 220, 'admin', NULL);
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(58, 'Tips for Improving Your Cricket Batting Skills', 3, 4, 'Learn effective tips and techniques to improve your cricket batting skills, from stance to shot selection.', '2024-07-03 12:30:00', '2024-07-03 12:30:00', 1, 'improve-cricket-batting-skills', 'cricket_batting.jpg', 180, 'admin', NULL);
+
+-- Football related posts
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(48, 'Top Football Transfer Rumors', 3, 5, 'Explore the latest transfer rumors in football, including potential big-money moves and player transfers between clubs.', '2024-07-02 11:45:00', '2024-07-02 11:45:00', 1, 'top-football-transfer-rumors', 'football_transfer.jpg', 250, 'admin', NULL);
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(49, 'Key Tactics for Winning Football Matches', 3, 5, 'Discover key tactics and strategies used by top football teams to win matches, from defense to attack.', '2024-07-01 10:15:00', '2024-07-01 10:15:00', 1, 'winning-football-match-tactics', 'football_tactics.jpg', 200, 'admin', NULL);
+
+-- More examples for cricket and football
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(50, 'Upcoming Cricket Tournaments to Watch Out For', 3, 4, 'Stay updated on the upcoming cricket tournaments around the world that promise thrilling cricket action.', '2024-06-30 09:00:00', '2024-06-30 09:00:00', 1, 'upcoming-cricket-tournaments', 'cricket_tournaments.jpg', 230, 'admin', NULL);
+
+INSERT INTO tblposts (id, PostTitle, CategoryId, SubCategoryId, PostDetails, PostingDate, UpdationDate, Is_Active, PostUrl, PostImage, viewCounter, postedBy, lastUpdatedBy)
+VALUES
+(51, 'Football Fitness Tips for Players', 3, 5, 'Get essential fitness tips tailored for football players to improve endurance, strength, and agility on the field.', '2024-06-29 15:30:00', '2024-06-29 15:30:00', 1, 'football-fitness-tips', 'football_fitness.jpg', 190, 'admin', NULL);

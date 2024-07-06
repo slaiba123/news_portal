@@ -11,7 +11,7 @@ if(isset($_POST['submit']))
   //Verifying CSRF Token
 if (!empty($_POST['csrftoken'])) {
     if (hash_equals($_SESSION['token'], $_POST['csrftoken'])) {
-$name=$_POST['name'];
+$name=$_POST['username'];
 $email=$_POST['email'];
 $comment=$_POST['comment'];
 $postid=intval($_GET['nid']);
@@ -131,6 +131,10 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+
+.img-fluid{
+    
+}
 </style>
 
   </head>
@@ -236,13 +240,13 @@ $pt=$row['postdetails'];
             <div class="card-body">
               <form name="Comment" method="post">
       <input type="hidden" name="csrftoken" value="<?php echo htmlentities($_SESSION['token']); ?>" />
- <div class="form-group">
+ <!-- <div class="form-group">
 <input type="text" name="name" class="form-control" placeholder="Enter your fullname" required>
 </div>
 
  <div class="form-group">
  <input type="email" name="email" class="form-control" placeholder="Enter your Valid email" required>
- </div>
+ </div> -->
 
 
                 <div class="form-group">
@@ -257,7 +261,7 @@ $pt=$row['postdetails'];
 
  <?php 
  $sts=1;
- $query=mysqli_query($con,"select name,comment,postingDate from  tblcomments where postId='$pid' and status='$sts'");
+ $query=mysqli_query($con,"select comment,postingDate from  tblcomments where postId='$pid' and status='$sts'");
 while ($row=mysqli_fetch_array($query)) {
 ?>
 <div class="media mb-4">
