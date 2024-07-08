@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
   <div class="login-image">
-    <img src="../images/main_pic.png" alt="" height="100%" width="100%">
+    <img src="admin/logo.jpg" alt="" height="100%" width="100%">
   </div>
 </div>
 

@@ -259,7 +259,7 @@ main {
     }
     
     .side-article {
-        background-color: rgb(72, 32, 32);
+        background-color:white;
         padding: 20px;
         padding-top:0;
         border-radius: 4px;
@@ -758,4 +758,8 @@ footer {
 a{
     text-decoration: none;
     color: #000;
+}
+
+.side-article{
+    height: 240px;
 }

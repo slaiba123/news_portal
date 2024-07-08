@@ -298,7 +298,7 @@ main {
 .weather-forecast {
     display: flex;
     gap: 1rem;
-    height: 100%;
+    height: 95%;
     width: 100%;
 }
 
@@ -446,4 +446,56 @@ footer {
 
 .mycontainer{
     padding-top: 3rem;
+}
+
+.slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slide-group {
+    display: flex;
+    flex: 0 0 100%;
+}
+.slide-item {
+    flex: 0 0 33.3333%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.slide-item img {
+    width: 100%;
+    height: auto;
+}
+.description {
+    padding: 10px;
+}
+.comments {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
 }
